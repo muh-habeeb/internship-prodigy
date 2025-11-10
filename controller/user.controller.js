@@ -171,7 +171,7 @@ export const loginUser = async (req, res) => {
 */
 
 export const updateUser = async (req, res) => {
-  const userId = req.user.id; //get the user id from request params
+  const userId = req.user.userId;
   //check for it valid
   if (!mongoose.Types.ObjectId.isValid(userId)) {
     return res.status(400).json({ error: "Invalid user ID" });
@@ -234,7 +234,7 @@ export const logout = (req, res) => {
 
 export const deleteUser = async (req, res) => {
   //get the userId from req params
-  const userId = req.user.id;
+  const userId = req.user.userId;
   //check if userId is valid number
   if (!mongoose.Types.ObjectId.isValid(userId)) {
     return res.status(400).json({ error: "Invalid user ID" });
@@ -245,6 +245,11 @@ export const deleteUser = async (req, res) => {
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
+    const result = await User.deleteOne({ _id: userId });
+    console.log(result);
+    await deleteCacheByPattern(`user:${userId}*`); //delete user related cache
+    await deleteCacheByPattern(`users:*`); //delete all users cache
+    await clearAllCache(); //clear all cache
     res.status(200).json({ message: "User deleted successfully" });
   } catch (error) {
     console.log(error);
