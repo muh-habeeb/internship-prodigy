@@ -3,18 +3,17 @@ import dotenv from "dotenv";
 
 dotenv.config();
 const redisClient = createClient({
-    host: process.env.REDIS_HOST ?? "localhost",
-    port: process.env.REDIS_PORT ?? 5000,
-    password: process.env.REDIS_PASSWORD ?? undefined
-
+    host: process.env.REDIS_HOST,
+    port: process.env.REDIS_PORT,
+    // password: process.env.REDIS_PASSWORD,
 })
 
 redisClient.on("error", (error) => {
-    console.log("Redis Error", error)
+    console.log("Redis Error :", error)
 })
 
-redisClient.on("connect", (cnn) => {
-    console.log("redis connected", cnn)
+redisClient.on("connect", () => {
+    console.log("--------------redis connected---------------")
 })
 
 export default redisClient;

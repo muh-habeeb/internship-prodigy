@@ -11,7 +11,10 @@ import cookieParser from "cookie-parser";
 
 import userRouter from "./routes/userRoute.js";
 import { connectDb } from "./db/connectDb.js";
+import redisClient from './utils/redis.js'
 
+//connect to redis 
+redisClient.connect();
 
 dotenv.config();
 const app = express();
