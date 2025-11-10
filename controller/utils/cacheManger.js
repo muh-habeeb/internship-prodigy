@@ -38,6 +38,18 @@ export const deleteCache = async (key) => {
     }
 }
 
+export const deleteCacheByPattern=async(pattern)=>{
+    try {
+        const keys = await redisClient.keys(pattern);
+        if (keys.length > 0) {
+            await redisClient.del(keys);
+            console.log("Cache Deleted by pattern Successfully", pattern);
+        }
+    } catch (error) {
+        console.error("Cache Delete by pattern Error", error);
+    }
+}
+
 export const clearAllCache = async () => {
     try {
         await redisClient.flushAll();

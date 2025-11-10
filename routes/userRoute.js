@@ -9,7 +9,9 @@ import {
   updateUser,
   loginUser,
   logout,
+
 } from "../controller/user.controller.js";
+import { deleteUserById, updateUserById } from "../controller/admin/adminController.js";
 router
   .route("/")
   .get(authorized, authorizedAsAdmin, getAllUsers);
@@ -29,6 +31,6 @@ router
 router
   .route("/:id")
   .get(authorized, authorizedAsAdmin, getUser)
-  .put(authorized, authorizedAsAdmin, updateUser)
-  .delete(authorized, authorizedAsAdmin, deleteUser);
+  .put(authorized, authorizedAsAdmin, updateUserById)
+  .delete(authorized, authorizedAsAdmin, deleteUserById);
 export default router;
