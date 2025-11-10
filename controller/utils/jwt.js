@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken";
 
 const JWT_SECRET = process.env.JWT_SECRET;
 export const setToken = (res, payload) => {
-    const token = jwt.sign({ payload }, JWT_SECRET, { expiresIn: "3d" }); //obj payload
+    const token = jwt.sign( payload , JWT_SECRET, { expiresIn: "3d" }); //obj payload
     res
         .cookie("token", token, {
             httpOnly: true,

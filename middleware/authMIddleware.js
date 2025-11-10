@@ -35,7 +35,7 @@ export const authorized = async (req, res, next) => {
 //check for admin function
 export const authorizedAsAdmin = (req, res, next) => {
   //check if user is admin by all the properties in payload
-  if (req.user.payload.userId && req.user.payload.isAdmin && req.user.payload.role === "admin") {
+  if (req.user.userId && req.user.isAdmin && req.user.role === "admin") {
     next();
   } else {
     return res.status(401).json({

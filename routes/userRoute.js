@@ -8,6 +8,7 @@ import {
   getAllUsers,
   updateUser,
   loginUser,
+  logout,
 } from "../controller/user.controller.js";
 router
   .route("/")
@@ -15,13 +16,16 @@ router
 
 router.post("/register", createUser);
 router.post("/login", loginUser);
+router.post("/logout", logout);
 
 
 router
-  .route("/profile/:id")
+  .route("/profile")
   .get(authorized, getUser)
   .put(authorized, updateUser)
-  .delete(authorized, authorizedAsAdmin, deleteUser);
+  .delete(authorized, deleteUser);
+
+//admin only routes
 router
   .route("/:id")
   .get(authorized, authorizedAsAdmin, getUser)

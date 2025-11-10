@@ -3,7 +3,7 @@ import User from "../models/userModel.js";
 import mongoose from "mongoose";
 import { setToken } from "./utils/jwt.js";
 import { hashPasswordUsingBcrypt } from "./utils/hashPassword.js";
-
+import { clearAllCache, getCache, setCache } from "../controller/utils/cacheManger.js";
 /**
 |--------------------------------------------------
 | function to get the user data by uuid
@@ -21,19 +21,33 @@ export const getAllUsers = async (req, res) => {
   });
 };
 export const getUser = async (req, res) => {
-  const userId = req.params.id; //get the user id from request params
-  //check if userId is valid Id
-  if (!userId || !mongoose.Types.ObjectId.isValid(userId)) {
+  const authUserId = req.user.userId; //get the authenticated user id from middleware
+  //check if authUserId is valid Id
+  if (!authUserId || !mongoose.Types.ObjectId.isValid(authUserId)) {
     return res.status(400).json("Invalid user ID");
   }
-  //search for user by uuid
+  const cachedUserKey = `user:${authUserId}`; //get the cached user id from middleware
+  //search for user by uuid in cache first then db
   try {
-    const user = await User.findById(userId);
-    //if user not found
-    if (!user) {
-      return res.status(404).send("User not found");
+    //check for cached user
+    const cachedUser = await getCache(cachedUserKey);
+    if (cachedUser) {
+      // return res.status(200).json(JSON.parse(cachedUser));
+      return res.status(200).json({
+        cachedUser,
+        source: 'cache'
+      });
+    } else {
+
+
+      const user = await User.findById(authUserId);
+      //if user not found
+      if (!user) {
+        return res.status(404).send("User not found");
+      }
+      await setCache(cachedUserKey, user, 6); //cache for 15 minutes
+      res.status(200).json({ user, source: 'database' });
     }
-    res.status(200).json(user);
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Internal server error" });
@@ -176,6 +190,7 @@ export const updateUser = async (req, res) => {
 */
 
 export const logout = (req, res) => {
+  clearAllCache();
   res.clearCookie("token");
   res.status(200).json({ message: "Logged out successfully" });
 }
