@@ -29,11 +29,11 @@ export const getUser = async (req, res) => {
   //search for user by uuid
   try {
     const user = await User.findById(userId);
+    //if user not found
     if (!user) {
       return res.status(404).send("User not found");
     }
     res.status(200).json(user);
-    //if user not found
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Internal server error" });
@@ -109,6 +109,8 @@ export const loginUser = async (req, res) => {
     let ms = user.isAdmin ? "Admin user logged in" : "Regular user logged in";
     res.status(200).json({
       message: "Login successful",
+      info: ms,
+      userid: user._id,
     });
   } catch (error) {
     console.log(error);
