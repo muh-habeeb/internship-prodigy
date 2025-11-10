@@ -47,7 +47,7 @@ export const getUser = async (req, res) => {
   const authUserId = req.user.userId; //get the authenticated user id from middleware
   //check if authUserId is valid Id
   if (!authUserId || !mongoose.Types.ObjectId.isValid(authUserId)) {
-    return res.status(400).json("Invalid user ID");
+    return res.status(400).json({ error: "Invalid user ID" });
   }
   const cachedUserKey = `user:${authUserId}`; //get the cached user id from middleware
   //search for user by uuid in cache first then db
@@ -64,7 +64,7 @@ export const getUser = async (req, res) => {
       const user = await User.findById(authUserId);
       //if user not found
       if (!user) {
-        return res.status(404).send("User not found");
+        return res.status(404).json({ error: "User not found" });
       }
       await setCache(cachedUserKey, user, 1800); //cache for 15 minutes
       res.status(200).json({ user, source: "database" });
@@ -245,8 +245,6 @@ export const deleteUser = async (req, res) => {
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
-    const result = await User.deleteOne({ _id: userId });
-    console.log(result);
     await deleteCacheByPattern(`user:${userId}*`); //delete user related cache
     await deleteCacheByPattern(`users:*`); //delete all users cache
     await clearAllCache(); //clear all cache
