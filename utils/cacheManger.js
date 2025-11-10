@@ -4,6 +4,8 @@ import redisClient from "../../utils/redis.js";
 export const setCache = async (key, value, expInSec = 3600) => {
     try {
         await redisClient.setEx(key, expInSec, JSON.stringify(value));
+        console.log("Cache Set Successfully");
+        console.log(JSON.stringify(value))
     } catch (error) {
         console.error("Cache Set Error", error);
     }
