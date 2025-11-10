@@ -120,6 +120,9 @@ export const loginUser = async (req, res) => {
       return res.status(401).json({ message: "invalid email or password " });
     }
     setToken(res, { userId: user._id, isAdmin: user.isAdmin, role: user.role });
+    //set user data in cache
+    await setCache(`user:${user._id}`, user, 6); //cache for 6 seconds
+
     let ms = user.isAdmin ? "Admin user logged in" : "Regular user logged in";
     res.status(200).json({
       message: "Login successful",
