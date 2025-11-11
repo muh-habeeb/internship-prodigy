@@ -43,6 +43,11 @@ export const getAllUsers = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+/**
+|--------------------------------------------------
+| function for getting profile data
+|--------------------------------------------------
+*/
 export const getUser = async (req, res) => {
   const authUserId = req.user.userId; //get the authenticated user id from middleware
   //check if authUserId is valid Id
@@ -149,7 +154,7 @@ export const loginUser = async (req, res) => {
     }
     setToken(res, { userId: user._id, isAdmin: user.isAdmin, role: user.role });
     //set user data in cache
-    await setCache(`user:${user._id}`, user, 6); //cache for 6 seconds
+    await setCache(`user:${user._id}`, user, 10); //cache for 10 seconds
 
     let ms = user.isAdmin ? "Admin user logged in" : "Regular user logged in";
     res.status(200).json({

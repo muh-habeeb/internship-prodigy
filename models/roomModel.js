@@ -32,20 +32,20 @@ const roomSchema = new mongoose.Schema({
       message: "Invalid image URL"
     }
   }],
-  checkIn: {
-    type: Date,
-    required: [true, "Check-in date is required"]
-  },
-  checkOut: {
-    type: Date,
-    required: [true, "Check-out date is required"],
-    validate: {
-      validator: function(value) {
-        return value > this.checkIn;
-      },
-      message: "Check-out date must be after check-in date"
-    }
-  },
+  // checkIn: {
+  //   type: Date,
+  //   required: [true, "Check-in date is required"]
+  // },
+  // checkOut: {
+  //   type: Date,
+  //   required: [true, "Check-out date is required"],
+  //   validate: {
+  //     validator: function(value) {
+  //       return value > this.checkIn;
+  //     },
+  //     message: "Check-out date must be after check-in date"
+  //   }
+  // },
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
