@@ -1,4 +1,9 @@
 
+/**
+|--------------------------------------------------
+|   this file contains the routes that manged by admin side  for user route
+|--------------------------------------------------
+*/
 //for admin to update user by id
 export const updateUserById = async (req, res) => {
   const userId = req.params.id; //get the user id from request params

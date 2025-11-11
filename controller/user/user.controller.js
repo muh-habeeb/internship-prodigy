@@ -1,15 +1,15 @@
-import isValidEmail from "./utils/emailValidator.js";
-import User from "../models/userModel.js";
+import isValidEmail from "../utils/emailValidator.js";
+import User from "../../models/userModel.js";
 import mongoose from "mongoose";
-import { setToken } from "./utils/jwt.js";
-import { hashPasswordUsingBcrypt } from "./utils/hashPassword.js";
+import { setToken } from "../utils/jwt.js";
+import { hashPasswordUsingBcrypt } from "../utils/hashPassword.js";
 import {
   clearAllCache,
   deleteCache,
   deleteCacheByPattern,
   getCache,
   setCache,
-} from "../controller/utils/cacheManger.js";
+} from "../utils/cacheManger.js";
 /**
 |--------------------------------------------------
 | function to get the user data by uuid

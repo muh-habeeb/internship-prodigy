@@ -10,8 +10,8 @@ import {
   loginUser,
   logout,
 
-} from "../controller/user.controller.js";
-import { deleteUserById, updateUserById } from "../controller/admin/adminController.js";
+} from "../controller/user/user.controller.js";
+import { deleteUserById, updateUserById } from "../controller/user/admin/adminController.js";
 router
   .route("/")
   .get(authorized, authorizedAsAdmin, getAllUsers);
