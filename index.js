@@ -1,7 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
-
+import chalk from "chalk";
 /**
  |--------------------------------------------------
  | function imports 
@@ -28,5 +28,5 @@ connectDb();
 app.use("/api/users", userRouter);
 
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(chalk.bgGreen(chalk.black(`Server is running on port ${PORT}`)));
 });

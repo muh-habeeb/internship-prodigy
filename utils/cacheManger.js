@@ -1,4 +1,3 @@
-import e, { json } from "express";
 import redisClient from "../../utils/redis.js";
 
 export const setCache = async (key, value, expInSec = 3600) => {

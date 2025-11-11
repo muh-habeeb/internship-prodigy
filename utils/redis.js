@@ -1,5 +1,6 @@
 import { createClient } from "redis";
 import dotenv from "dotenv";
+import chalk from "chalk";
 
 dotenv.config();
 const redisClient = createClient({
@@ -10,11 +11,10 @@ const redisClient = createClient({
 
 redisClient.on("error", (error) => {
     console.log("Redis Error :", error)
-    next();
 })
 
 redisClient.on("connect", () => {
-    console.log("--------------redis connected---------------")
+    console.log(chalk.yellowBright("--------------redis connected---------------"))
 })
 
 export default redisClient;

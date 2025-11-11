@@ -54,9 +54,9 @@ A secure and scalable backend API for a hotel booking platform using Node.js, Ex
 - [x] Create Admin-only Routes for user management
 - [x] Add Redis caching for user data
 - [x] Implement Logout functionality with cookie clearing
-
+x
 ### Phase 3: Hotel Room Management Module ⏳
-- [ ] Create Room Model with schema validation
+- [x] Create Room Model with schema validation
   - hotelName, location, pricePerNight, available
   - description, images array
   - checkIn, checkOut dates

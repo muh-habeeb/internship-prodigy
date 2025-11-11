@@ -1,5 +1,6 @@
 import { mongoose } from "mongoose";
 import dotenv from "dotenv";
+import chalk from "chalk";
 dotenv.config();
 const uri = process.env.MONGO_URI;
 if (!uri) {
@@ -11,10 +12,10 @@ export const connectDb = async () => {
   await mongoose
     .connect(uri)
     .then(() => {
-      console.log("Database connected successfully", mongoose.connection.host);
+      console.log(chalk.bgMagenta(chalk.black("Database connected successfully"), chalk.bold(mongoose.connection.host)));
     })
     .catch((error) => {
-      console.log("mongodb not connected", error.message, error);
+      console.log(chalk.bgRed(chalk.white("mongodb not connected"), error.message, error));
 
       process.exit(1);
     });
