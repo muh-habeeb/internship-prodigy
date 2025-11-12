@@ -39,7 +39,7 @@ export const authorizedAsAdmin = (req, res, next) => {
     next();
   } else {
     return res.status(401).json({
-      message: "Not authorized as admin",
+      message: " you cannot do this operation.Not authorized as admin",
     });
   }
 };

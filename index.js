@@ -36,7 +36,10 @@ connectDb();
 app.use("/api/users", userRouter);
 app.use("/api/rooms", roomRouter);
 
-
+// 404 handler
+app.use((req, res) => {
+  res.status(404).json({ error: "Route not found" });
+});
 
 app.listen(PORT, () => {
   console.log(chalk.bgGreen(chalk.black(`Server is running on port ${PORT}`)));
