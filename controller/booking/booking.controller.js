@@ -4,7 +4,7 @@ import { checkDateConflict } from "./helper/dateConflict.js";
 import { calculateNights } from "./helper/calculateNights.js";
 import Room from "../../models/roomModel.js";
 import chalk from "chalk";
-import { deleteCache } from "../utils/cacheManger.js";
+import { setCache,getCache,deleteCache } from "../utils/cacheManger.js";
 
 
 //custom error and success function
@@ -185,17 +185,17 @@ export const cancelBooking = async (req, res) => {
                 .json({ error: "Access denied. This booking does not belong to you." });
         }
 
-        if (booking.status === "canceled") {
-            return res.status(400).json({ error: "Booking is already canceled." });
+        if (booking.status === "cancelled") {
+            return res.status(400).json({ error: "Booking is already cancelled." });
         }
-        booking.status = "canceled";
+        booking.status = "cancelled";
         booking.updatedAt = Date.now();
         await booking.save();
         //clearing cache
         await deleteCache(`user:${userId}:bookings`); //clear relevant caches
 
         res.status(200).json({
-            message: "Booking canceled successfully",
+            message: "Booking cancelled successfully",
             booking,
         });
 
