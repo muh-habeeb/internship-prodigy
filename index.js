@@ -35,7 +35,7 @@ connectDb();
 
 app.use("/api/users", userRoute);
 app.use("/api/rooms", roomRoute);
-app.use("/api/booking", bookingRoute);
+app.use("/api/bookings", bookingRoute);
 
 // 404 handler
 app.use((req, res) => {
@@ -47,13 +47,13 @@ app.listen(PORT, () => {
 });
 
 
-console.log(new Date().toISOString());
-const now = new Date();
+// console.log(new Date().toISOString());
+// const now = new Date();
 
-// 3 days in milliseconds
-const threeDays = 3 * 24 * 60 * 60 * 1000;
+// // 3 days in milliseconds
+// const threeDays = 3 * 24 * 60 * 60 * 1000;
 
-// Timestamp for 3 days later
-const afterThreeDays = new Date(now.getTime() + threeDays);
+// // Timestamp for 3 days later
+// const afterThreeDays = new Date(now.getTime() + threeDays);
 
-console.log(afterThreeDays.toISOString());
+// console.log(afterThreeDays.toISOString());
