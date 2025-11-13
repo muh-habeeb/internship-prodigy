@@ -11,9 +11,9 @@ import chalk from "chalk";
 
 import { connectDb } from "./db/connectDb.js";
 import redisClient from './utils/redis.js'
-import userRouter from "./routes/userRoute.js";
-import roomRouter from "./routes/roomRoute.js";
-
+import userRoute from "./routes/userRoute.js";
+import roomRoute from "./routes/roomRoute.js";
+import bookingRoute from "./routes/bookingRoute.js"
 //connect to redis 
 redisClient.connect();
 
@@ -33,8 +33,9 @@ connectDb();
 |--------------------------------------------------
 */
 
-app.use("/api/users", userRouter);
-app.use("/api/rooms", roomRouter);
+app.use("/api/users", userRoute);
+app.use("/api/rooms", roomRoute);
+app.use("/api/booking", bookingRoute);
 
 // 404 handler
 app.use((req, res) => {
@@ -44,3 +45,15 @@ app.use((req, res) => {
 app.listen(PORT, () => {
   console.log(chalk.bgGreen(chalk.black(`Server is running on port ${PORT}`)));
 });
+
+
+console.log(new Date().toISOString());
+const now = new Date();
+
+// 3 days in milliseconds
+const threeDays = 3 * 24 * 60 * 60 * 1000;
+
+// Timestamp for 3 days later
+const afterThreeDays = new Date(now.getTime() + threeDays);
+
+console.log(afterThreeDays.toISOString());

@@ -3,6 +3,8 @@ import Booking from "../../models/bookingModel.js";
 import { checkDateConflict } from "./helper/dateConflict.js";
 import { calculateNights } from "./helper/calculateNights.js";
 import Room from "../../models/roomModel.js";
+import chalk from "chalk";
+import { deleteCache } from "../utils/cacheManger.js";
 
 
 //custom error and success function
@@ -39,11 +41,11 @@ export const createBooking = async (req, res) => {
         const check_out = new Date(checkOut);
 
         //validate dates
-        if (check_in < new Date()) {
-            return res
-                .status(400)
-                .json({ error: "Check-in date cannot be in the past" });
-        }
+        // if (check_in < new Date()) {
+        //     return res
+        //         .status(400)
+        //         .json({ error: "Check-in date cannot be in the past" });
+        // }
         if (check_out <= check_in) {
             return res
                 .status(400)
@@ -88,6 +90,7 @@ export const createBooking = async (req, res) => {
         });
     } catch (error) {
         ErrorMsg(`error occurred in createBooking: ${error}`);
+        console.log(error)
         return res
             .status(500)
             .json({ message: "internal server error ", error: error.message });
