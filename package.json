@@ -1,7 +1,7 @@
 {
   "name": "t5",
   "version": "1.0.0",
-  "description": "task 3",
+  "description": "a small hotel room and booking management system",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon backend/index.js",
